@@ -1,0 +1,69 @@
+
+to_do = []
+
+def menu():
+    while True:
+        print("\nYOUR TO DO LIST")
+        print("1. Add a task")
+        print("2. View your tasks")
+        print("3. Remove a task")
+        print("4. Mark a task as completed")
+        print("5. Exit")
+
+        ch = input("Enter your choice: ")
+        if ch == "1":
+            create_task()
+        elif ch == "2":
+            view_task()
+        elif ch == "3":
+            remove_task()
+        elif ch == "4":
+            update_task()
+        elif ch == "5":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid Choice. Please enter a number from 1 to 5.")
+
+def create_task():
+    task = input("Enter the task: ")
+    to_do.append({"Task": task, "Status": "Not Completed"})
+    print("New task added successfully.")
+
+def view_task():
+    if not to_do:
+        print("No task in your list.")
+    else:
+        print("Your tasks:")
+        for i, task in enumerate(to_do, start=1):
+            print(f"{i}. {task['Task']} - {task['Status']}")
+
+def remove_task():
+    if not to_do:
+        print("No task in your list.")
+    else:
+        try:
+            index = int(input("Enter the task number to remove: ")) - 1
+            if 0 <= index < len(to_do):
+                removed = to_do.pop(index)
+                print(f"Task '{removed['Task']}' removed successfully.")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+def update_task():
+    if not to_do:
+        print("No task in your list.")
+    else:
+        try:
+            index = int(input("Enter the task number to mark as completed: ")) - 1
+            if 0 <= index < len(to_do):
+                to_do[index]["Status"] = "Completed"
+                print(f"Task '{to_do[index]['Task']}' marked as completed.")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+menu()
